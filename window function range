@@ -1,0 +1,14 @@
+--be sure to add range unbounded preceding and unbounded following so that the system knows to search up all rows
+
+SELECT
+  Year,
+  City,
+  -- Get the last city in which the Olympic games were held
+  last_value(city) OVER (
+   ORDER BY city ASC
+   RANGE BETWEEN
+     UNBOUNDED PRECEDING AND
+     UNBOUNDED FOLLOWING
+  ) AS Last_City
+FROM Hosts
+ORDER BY Year ASC;
