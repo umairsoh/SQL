@@ -1,0 +1,10 @@
+using a partition sperates based on a criteria ie. the lag then resets when searching
+
+SELECT
+  Gender, Year,
+  Country AS Champion,
+  -- Fetch the previous year's champion by gender
+  lag(country) OVER ( partition by gender
+            ORDER BY year ASC) AS Last_Champion
+FROM Tennis_Gold
+ORDER BY Gender ASC, Year ASC;
