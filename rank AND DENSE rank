@@ -1,0 +1,11 @@
+-- here you can rank rows. the difference in using dense rank is that rows that have the same entry will join a ranking position .
+--additionally you can partition your ranking by adding a partition by clause after over 
+
+SELECT
+  Country,
+  -- Rank athletes in each country by the medals they've won
+  athlete,
+  RANK() OVER (PARTITION BY Country
+                ORDER BY Medals DESC) AS Rank_N
+FROM Athlete_Medals
+ORDER BY Country ASC, RANK_N ASC;
