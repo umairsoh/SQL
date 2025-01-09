@@ -1,0 +1,27 @@
+--you can rank a source query with the following commands.
+
+
+WITH Country_Awards AS (
+  SELECT
+    Country,
+    Year,
+    COUNT(*) AS Awards
+  FROM Summer_Medals
+  WHERE
+    Country IN ('FRA', 'GBR', 'GER')
+    AND Year IN (2004, 2008, 2012)
+    AND Medal = 'Gold'
+  GROUP BY Country, Year)
+
+SELECT
+  Country,
+  Year,
+  -- Rank by gold medals earned per year
+  RANK() OVER
+    (PARTITION BY Year
+     ORDER BY Awards DESC) :: INTEGER AS rank
+FROM Country_Awards
+ORDER BY Country ASC, Year ASC;
+
+-- you can see above ive selected rank over partition by year so its ranked and partitioned every year , im ordering the ranking by awards. 
+
