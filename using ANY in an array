@@ -1,0 +1,9 @@
+-using any to locate a text in an array. usually an array is text based for phone numbers , emails etc .
+-format is this WHERE 'search text' = ANY(array_name)
+
+SELECT
+  title, 
+  special_features 
+FROM film 
+-- Modify the query to use the ANY function 
+WHERE 'Trailers' = ANY(special_features);
